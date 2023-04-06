@@ -4,7 +4,8 @@ import phone from "../assets/images/fone de ouvido.png"
 import { Page } from '../components/Page';
 import { PlayCicleIcon } from "../assets/icons/PlayCicleIcon"
 import { MainLayout } from '../components/layout';
-import { Box, Button, Grid, Heading, chakra, Image } from '@chakra-ui/react';
+import { Box, Button, Grid, Heading, chakra } from '@chakra-ui/react';
+import Image from 'next/image';
 
 
 
@@ -48,7 +49,7 @@ export default function Home({ data }: { data: unknown[] }) {
           pt="8vh"
         >
           <Box w="75%" justifySelf={{ base: "center", md: "end" }} >
-            <Image src={phone.src} alt='fone de ouvido vermelho' objectFit='contain' maxW="100%" />
+            <Image src={phone} alt='fone de ouvido vermelho' fill priority />
           </Box>
           <Grid justifySelf={{ base: "center", md: "start" }} rowGap="1.5rem">
             <Heading as='h1' fontSize={{ base: "2.9rem", xl: "4.5rem" }} fontWeight="400">
