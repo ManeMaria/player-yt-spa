@@ -49,7 +49,7 @@ export default function Home({ data }: { data: unknown[] }) {
           pt="8vh"
         >
           <Box w="75%" justifySelf={{ base: "center", md: "end" }} >
-            <Image src={phone} alt='fone de ouvido vermelho' fill priority />
+            <Image src={phone} alt='fone de ouvido vermelho' priority />
           </Box>
           <Grid justifySelf={{ base: "center", md: "start" }} rowGap="1.5rem">
             <Heading as='h1' fontSize={{ base: "2.9rem", xl: "4.5rem" }} fontWeight="400">
