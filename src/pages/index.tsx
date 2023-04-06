@@ -4,8 +4,9 @@ import phone from "../assets/images/fone de ouvido.png"
 import { Page } from '../components/Page';
 import { PlayCicleIcon } from "../assets/icons/PlayCicleIcon"
 import { MainLayout } from '../components/layout';
-import { Box, Button, Flex, Grid, Heading, Icon, Text, chakra } from '@chakra-ui/react';
-import Image from 'next/image';
+import { Box, Button, Grid, Heading, chakra, Image } from '@chakra-ui/react';
+
+
 
 const Span = chakra('span', {
   baseStyle: {
@@ -47,7 +48,7 @@ export default function Home({ data }: { data: unknown[] }) {
           pt="8vh"
         >
           <Box w="75%" justifySelf={{ base: "center", md: "end" }} >
-            <Image src={phone} alt='fone de ouvido vermelho' priority />
+            <Image src={phone.src} alt='fone de ouvido vermelho' objectFit='contain' maxW="100%" />
           </Box>
           <Grid justifySelf={{ base: "center", md: "start" }} rowGap="1.5rem">
             <Heading as='h1' fontSize={{ base: "2.9rem", xl: "4.5rem" }} fontWeight="400">
