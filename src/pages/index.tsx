@@ -34,7 +34,7 @@ const LinkButton = chakra(Button, {
   }
 })
 
-export default function Home({ data }: unknown[]) {
+export default function Home({ data }: { data: unknown[] }) {
   console.log('data :>> ', data);
   return (
     <MainLayout>
