@@ -1,7 +1,5 @@
 import { Box, Button, Grid, Heading, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
-// import Image from 'next/image';
-
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -10,7 +8,6 @@ import { VideoPlayer } from '@/components/VideoPlayer';
 import { randomIntNumber } from '@/util/randoNumber';
 
 import { PlayCicleIcon } from '../../assets/icons/PlayCicleIcon';
-// import phone from '../assets/images/fone de ouvido.png';
 import { MainLayout } from '../../components/layout';
 import { Page } from '../../components/Page';
 

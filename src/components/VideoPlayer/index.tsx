@@ -10,6 +10,7 @@ type VideoPlayerProps = {
 };
 
 export const VideoPlayer = ({ videoId, items = [] }: VideoPlayerProps) => {
+  console.log('items :>> ', items);
   return (
     <>
       {!videoId ? (
