@@ -1,24 +1,21 @@
-
-
 export const styles = {
   global: {
     html: {
-      bg: "black.500",
+      bg: 'black.500',
       minH: '100vh',
-      fontSize: "12px",
+      fontSize: '12px',
     },
     body: {
-      bg: "black.500",
+      bg: 'black.500',
       h: '100%',
       WebkitTapHighlightColor: 'transparent',
-      color: "white.500",
-      fontSize: "12px",
+      color: 'white.500',
+      fontSize: '12px',
       fontFamily: `"Poppins", sans-serif`,
       fontWeight: '400',
-      "h1, h2, h3": {
+      'h1, h2, h3': {
         fontWeight: '600',
-      }
-
+      },
     },
     '#chakra-toast-portal > *': {
       pt: 'safe-top',
@@ -26,7 +23,5 @@ export const styles = {
       pr: 'safe-right',
       pb: 'safe-bottom',
     },
-
-
   },
 };

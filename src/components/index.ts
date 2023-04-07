@@ -1,2 +1,2 @@
-export * from "./layout"
-export * from "./Page"
+export * from './layout';
+export * from './Page';

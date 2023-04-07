@@ -1,9 +1,9 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect, useRef } from 'react';
-import Head from 'next/head'
-import { MotionBox } from '../MotionBox';
 
+import { MotionBox } from '../MotionBox';
 
 type PageProps = {
   children: ReactNode;
@@ -42,7 +42,6 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
       <Head>
         <title>{title ? `${title}` : undefined}</title>
         <meta name="description" content="Top 100 músicas sertanejas" />
-
       </Head>
       <Box w="100%" {...restProps}>
         <Box h="100%">{children}</Box>
