@@ -1,8 +1,10 @@
 import { Box, BoxProps, Container } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 import { ReactNode, useEffect, useRef } from 'react';
 
+import backggroundImage from '../../assets/images/festival_widexl.webp';
 import { MotionBox } from '../MotionBox';
 
 type PageProps = {
@@ -43,6 +45,32 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
         <title>{title ? `${title}` : undefined}</title>
         <meta name="description" content="Top 100 músicas sertanejas" />
       </Head>
+      <NextSeo
+        title={`${title}`}
+        description={'Ouça agora as Top 100 músicas sertanejas mais tocadas de 2023.'}
+        openGraph={{
+          title,
+          type: 'website',
+          description: 'Ouça agora as Top 100 músicas sertanejas mais tocadas de 2023.',
+          images: [
+            {
+              url: backggroundImage.src,
+              alt: 'plateia sertaneja',
+              type: 'webp',
+              height: 600,
+              width: 800,
+              secureUrl: backggroundImage.src,
+            },
+          ],
+          locale: 'pt-BR',
+          site_name: 'Top 100 músicas sertanejas',
+          article: { authors: ['cesar'] },
+          book: { authors: ['cesar'] },
+        }}
+        robotsProps={{
+          maxImagePreview: 'large',
+        }}
+      />
       <Box w="100%" {...restProps}>
         <Container centerContent p="0" h="100%" maxW="133rem">
           {children}
