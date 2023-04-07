@@ -12,7 +12,7 @@ const Footer = chakra('footer', {
     placeItems: 'center',
     minH: '8vh',
     fontSize: 'min(2vw, 1.2rem)',
-    mt: '10vh',
+    mt: '4rem',
     w: '100%',
     zIndex: '1',
   },
