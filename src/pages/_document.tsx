@@ -32,6 +32,14 @@ export default function Document() {
           name="twitter:image"
           content="https://player-yt-spa.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffestival_widexl.4f8ed320.webp&w=800&q=75"
         />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ed0f35" />
+        <meta name="msapplication-TileColor" content="#2b5797" />
+        <meta name="theme-color" content="#ffffff" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
         <Main />
