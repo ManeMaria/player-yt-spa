@@ -1,15 +1,17 @@
 import { Button, Grid, Text, chakra } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 
 import { PlayIcon } from '@/assets/icons/PlayIcon';
 
-type PlayerProps = {
-  handleClick: (id: string) => void;
-};
-
 const CustomButton = chakra(Button, {
   baseStyle: {
     bg: 'gray.500',
+    w: '100%',
+    h: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    transition: 'all 0.2s ease-in-out',
     fontSize: {
       base: '0.9rem',
       xl: '1.5rem',
@@ -17,8 +19,7 @@ const CustomButton = chakra(Button, {
     fontWeight: 'normal',
     borderRadius: '10px',
     p: {
-      base: '2rem 0.5rem',
-      xl: '2.3rem 2rem',
+      base: '1.3rem 0.5rem',
     },
     _hover: {
       bg: 'inherit',
@@ -53,7 +54,7 @@ const LIST_PLAYLISTS = [
   },
 ] as const;
 
-export const Player = ({ handleClick }: PlayerProps) => {
+export const ButtonsPlayer = () => {
   return (
     <Grid
       gridTemplateColumns={{
@@ -68,10 +69,12 @@ export const Player = ({ handleClick }: PlayerProps) => {
         Outras playlists:
       </Text>
       {LIST_PLAYLISTS.map((playlist) => (
-        <CustomButton key={playlist.id} onClick={() => handleClick(playlist.id)}>
-          <Text ml="auto">{playlist.title}</Text>
-          <PlayIcon boxSize={{ base: '10px', lg: '20px' }} fill="red.500" ml="auto" />
-        </CustomButton>
+        <Link key={playlist.id} href={`/home?id=${playlist.id}`} replace>
+          <CustomButton>
+            <Text ml="auto">{playlist.title}</Text>
+            <PlayIcon boxSize={{ base: '10px', lg: '20px' }} fill="red.500" ml="auto" />
+          </CustomButton>
+        </Link>
       ))}
     </Grid>
   );

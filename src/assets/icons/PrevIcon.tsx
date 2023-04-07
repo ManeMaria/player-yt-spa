@@ -1,6 +1,6 @@
 import { Icon, IconProps } from '@chakra-ui/react';
 
-export const NextIcon = (props: IconProps) => {
+export const PrevIcon = (props: IconProps) => {
   return (
     <Icon
       xmlns="http://www.w3.org/2000/svg"

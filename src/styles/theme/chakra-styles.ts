@@ -7,7 +7,7 @@ export const styles = {
     },
     body: {
       bg: 'black.500',
-      h: '100%',
+      minH: '100vh',
       WebkitTapHighlightColor: 'transparent',
       color: 'white.500',
       fontSize: '12px',

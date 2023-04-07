@@ -1,13 +1,15 @@
 import { Box, Button, Grid, Heading, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { Player } from '@/components/Player';
+import { ButtonsPlayer } from '@/components/ButtonsPlayer';
 import { VideoPlayer } from '@/components/VideoPlayer';
-import { randomIntNumber } from '@/util/randoNumber';
+import { useItemsContext } from '@/context/ItemsProvider';
 
 import { PlayCicleIcon } from '../../assets/icons/PlayCicleIcon';
+import backggroundImage from '../../assets/images/festival_widexl.webp';
 import { MainLayout } from '../../components/layout';
 import { Page } from '../../components/Page';
 
@@ -39,32 +41,44 @@ const LinkButton = chakra(Button, {
 });
 
 export default function Home({ data }: { data: PlayList }) {
-  const { push, query } = useRouter();
-  const [selectedVideo, setSelectedVideo] = useState(
-    data?.items?.[0]?.snippet.resourceId.videoId || '',
-  );
-
-  const items = data?.items || [];
+  const itemsCtx = useItemsContext();
+  const { query } = useRouter();
+  const items = data?.items?.filter((item) => 'Deleted video' !== item.snippet.title) || [];
 
   useEffect(() => {
-    setSelectedVideo(data?.items?.[randomIntNumber()]?.snippet.resourceId.videoId || '');
+    itemsCtx?.setValues({
+      videoId: data?.items?.[0]?.snippet.resourceId.videoId || '',
+      items,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query?.id]);
 
-  console.log('items :>> ', items);
   return (
     <MainLayout>
-      <Page title="Top 100 músicas sertanejas">
-        <Grid h="100%" rowGap="4rem">
+      <Page title="Top 100 músicas sertanejas" pos="relative">
+        <Box pos="absolute" w="100vw" h="100vh" top="0" zIndex="0" opacity="0.2">
+          <Image src={backggroundImage} fill alt="bg" />
+        </Box>
+        <Grid rowGap="4rem" zIndex="1">
           <Grid
             alignItems="center"
             width="100%"
-            gridTemplateColumns={{ base: '1fr', lg: '1fr 1fr' }}
+            gridTemplateColumns={{ base: '1fr', lg: '1fr auto' }}
             gap="4rem"
             pt="8vh"
           >
-            <Box w="75%" justifySelf={{ base: selectedVideo ? 'start' : 'end' }}>
-              <VideoPlayer videoId={selectedVideo} items={items} />
+            <Box justifySelf={itemsCtx?.values.videoId ? 'start' : 'center'}>
+              <VideoPlayer
+                videoId={itemsCtx?.values.videoId}
+                items={items}
+                setSelectedVideo={(id) =>
+                  itemsCtx?.setValues((values) => ({
+                    ...values,
+
+                    videoId: id,
+                  }))
+                }
+              />
             </Box>
             <Grid justifySelf={{ base: 'center', lg: 'start' }} rowGap="1.5rem">
               <Heading as="h1" fontSize={{ base: '2.9rem', xl: '4.5rem' }} fontWeight="400">
@@ -87,14 +101,7 @@ export default function Home({ data }: { data: PlayList }) {
               </LinkButton>
             </Grid>
           </Grid>
-          <Player
-            handleClick={(id) => {
-              push({
-                pathname: '/home',
-                query: { id },
-              });
-            }}
-          />
+          <ButtonsPlayer />
         </Grid>
       </Page>
     </MainLayout>
@@ -107,11 +114,12 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }) => 
   const response = await fetch(
     `https://www.googleapis.com/youtube/v3/playlistItems/?part=snippet&maxResults=50&playlistId=${id}&key=${process.env.API_KEY_GOOGLE}`,
   );
+
   const data = (await response.json()) as PlayList;
 
   return {
     props: {
-      data,
+      data: data || {},
     },
   };
 };

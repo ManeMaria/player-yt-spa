@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, BoxProps, Container } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect, useRef } from 'react';
@@ -8,7 +8,7 @@ import { MotionBox } from '../MotionBox';
 type PageProps = {
   children: ReactNode;
   title?: string;
-};
+} & BoxProps;
 
 export const Page = ({ children, title, ...restProps }: PageProps) => {
   const router = useRouter();
@@ -36,7 +36,7 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
       initial="hidden"
       animate="show"
       ref={pageRef}
-      maxW={{ base: 'container.lg', lg: '900px', xl: '1400', '2xl': 'container.2xl' }}
+      w="100%"
       mx="auto"
     >
       <Head>
@@ -44,7 +44,9 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
         <meta name="description" content="Top 100 músicas sertanejas" />
       </Head>
       <Box w="100%" {...restProps}>
-        <Box h="100%">{children}</Box>
+        <Container centerContent p="0" h="100%" maxW="133rem">
+          {children}
+        </Container>
       </Box>
     </MotionBox>
   );
