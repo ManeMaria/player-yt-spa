@@ -18,7 +18,7 @@ export default function Document() {
         <meta
           property="og:image"
           itemProp="image"
-          content="https://player-yt-spa.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffestival_widexl.4f8ed320.webp&w=1920&q=75"
+          content="https://player-yt-spa.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffestival_widexl.4f8ed320.webp&w=800&q=75"
         />
 
         <meta name="twitter:card" content="summary_large_image" />
@@ -30,7 +30,7 @@ export default function Document() {
         />
         <meta
           name="twitter:image"
-          content="https://player-yt-spa.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffestival_widexl.4f8ed320.webp&w=1920&q=75"
+          content="https://player-yt-spa.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffestival_widexl.4f8ed320.webp&w=800&q=75"
         />
       </Head>
       <body>

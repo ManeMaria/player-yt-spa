@@ -42,7 +42,7 @@ const LinkButton = chakra(Button, {
   },
 });
 
-export default function Home({ data }: { data: PlayList }) {
+export default function Home({ data, isFirstRender }: { data: PlayList; isFirstRender: boolean }) {
   const itemsCtx = useItemsContext();
   const { query } = useRouter();
   const items = data?.items?.filter((item) => 'Deleted video' !== item.snippet.title) || [];
@@ -51,14 +51,16 @@ export default function Home({ data }: { data: PlayList }) {
     itemsCtx?.setValues({
       videoId: data?.items?.[0]?.snippet.resourceId.videoId || '',
       items,
+      isFirstRender,
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query?.id]);
 
   return (
     <MainLayout>
       <Page title="Top 100 músicas sertanejas" pos="relative">
-        <Box pos="absolute" w="100vw" h="100vh" top="0" zIndex="0" opacity="0.1">
+        <Box pos="absolute" w="99vw" h="100vh" top="0" zIndex="0" opacity="0.1">
           <Image src={backggroundImage} fill alt="bg" />
         </Box>
         <Grid rowGap="4rem" zIndex="1">
@@ -73,6 +75,7 @@ export default function Home({ data }: { data: PlayList }) {
               <VideoPlayer
                 videoId={itemsCtx?.values.videoId}
                 items={items}
+                isFirstRender={isFirstRender}
                 setSelectedVideo={(id) =>
                   itemsCtx?.setValues((values) => ({
                     ...values,
@@ -111,7 +114,9 @@ export default function Home({ data }: { data: PlayList }) {
 
 export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
   res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
-  const id = query?.id || 'L7lemN72eWJr21nU_5YjEpDLxXRMuLbm4';
+  const id = query?.id || 'PL7lemN72eWJr4RLSPdPIlvjdyd_iBUXol';
+  const isFirstRender = !query?.id;
+
   const response = await fetch(
     `https://www.googleapis.com/youtube/v3/playlistItems/?part=snippet&maxResults=50&playlistId=${id}&key=${process.env.API_KEY_GOOGLE}`,
   );
@@ -121,6 +126,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }) => 
   return {
     props: {
       data: data || {},
+      isFirstRender,
     },
   };
 };

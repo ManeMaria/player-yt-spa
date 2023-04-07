@@ -1,7 +1,5 @@
 import { Grid, Text, chakra } from '@chakra-ui/react';
 
-import { useItemsContext } from '@/context/ItemsProvider';
-
 import { ViewMusic } from '../ViewMusic';
 
 type LayoutProps = {
@@ -21,23 +19,12 @@ const Footer = chakra('footer', {
 });
 
 export const MainLayout = ({ children }: LayoutProps) => {
-  const itemsCtx = useItemsContext();
-
   return (
     <>
       <main>{children}</main>
 
       <Footer>
-        <ViewMusic
-          currentVideo={itemsCtx?.values.videoId}
-          setSelectedVideo={(id) => {
-            itemsCtx?.setValues((values) => ({
-              ...values,
-              videoId: id,
-            }));
-          }}
-          items={itemsCtx?.values.items}
-        />
+        <ViewMusic />
         <Grid minH="8vh" placeItems="center">
           <Text>Todos os direitos reservados (All rights reserved) - 2024</Text>
         </Grid>

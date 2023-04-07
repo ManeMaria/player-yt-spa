@@ -9,6 +9,7 @@ import phone from '../../assets/images/fone de ouvido.png';
 
 type VideoPlayerProps = ItemsContextProps & {
   setSelectedVideo: (id: string) => void;
+  isFirstRender: boolean;
 };
 
 const ListMusic = ({ items = [], setSelectedVideo, videoId }: VideoPlayerProps) => {
@@ -80,10 +81,15 @@ const ListMusic = ({ items = [], setSelectedVideo, videoId }: VideoPlayerProps) 
   );
 };
 
-export const VideoPlayer = ({ videoId = '', items = [], setSelectedVideo }: VideoPlayerProps) => {
+export const VideoPlayer = ({
+  videoId = '',
+  items = [],
+  setSelectedVideo,
+  isFirstRender,
+}: VideoPlayerProps) => {
   return (
     <>
-      {!videoId ? (
+      {!videoId || isFirstRender ? (
         <Box
           w={{
             base: '75vw',
@@ -111,14 +117,19 @@ export const VideoPlayer = ({ videoId = '', items = [], setSelectedVideo }: Vide
               },
             }}
           >
-            <ListMusic items={items} setSelectedVideo={setSelectedVideo} videoId={videoId} />
+            <ListMusic
+              items={items}
+              setSelectedVideo={setSelectedVideo}
+              videoId={videoId}
+              isFirstRender={isFirstRender}
+            />
           </Box>
+
           <iframe
             width="100%"
             height="100%"
-            src={`https://www.youtube.com/embed/${videoId}`}
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
             title="YouTube video player"
-            frameBorder="100px"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>
