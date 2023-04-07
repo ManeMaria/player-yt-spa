@@ -1,11 +1,13 @@
 import { Box, Button, Grid, Heading, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import { ButtonsPlayer } from '@/components/ButtonsPlayer';
 import { VideoPlayer } from '@/components/VideoPlayer';
+import { PLAYLISTS_IDS } from '@/config';
 import { useItemsContext } from '@/context/ItemsProvider';
 
 import { PlayCicleIcon } from '../../assets/icons/PlayCicleIcon';
@@ -27,7 +29,7 @@ const LinkButton = chakra(Button, {
     borderRadius: '49px',
     fontSize: 'min(4vw, 1.7rem)',
     transition: 'all 0.2s ease-in-out',
-    p: '1rem 0',
+    p: '2rem 0',
     textAlign: 'center',
     _hover: {
       color: 'black.500',
@@ -56,7 +58,7 @@ export default function Home({ data }: { data: PlayList }) {
   return (
     <MainLayout>
       <Page title="Top 100 músicas sertanejas" pos="relative">
-        <Box pos="absolute" w="100vw" h="100vh" top="0" zIndex="0" opacity="0.2">
+        <Box pos="absolute" w="100vw" h="100vh" top="0" zIndex="0" opacity="0.1">
           <Image src={backggroundImage} fill alt="bg" />
         </Box>
         <Grid rowGap="4rem" zIndex="1">
@@ -90,15 +92,14 @@ export default function Home({ data }: { data: PlayList }) {
                 <br />
                 tocadas de 2023.
               </Heading>
-              <LinkButton
-                w="70%"
-                as="a"
-                href="https://www.youtube.com/playlist?list=PL7lemN72eWJro2I3RjsqGEcQZ3PQ1kFhD"
-                target="_blank"
-              >
-                <PlayCicleIcon boxSize="30px" mr="0.5rem" fill="white.500" />
-                Ouvir agora!
-              </LinkButton>
+              <Box w="70%">
+                <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
+                  <LinkButton w="100%">
+                    <PlayCicleIcon boxSize="30px" mr="0.5rem" fill="white.500" />
+                    Ouvir agora!
+                  </LinkButton>
+                </Link>
+              </Box>
             </Grid>
           </Grid>
           <ButtonsPlayer />
