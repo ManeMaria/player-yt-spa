@@ -11,6 +11,13 @@ const nextConfig = {
         port: '',
         pathname: '/vi/**',
       },
+
+      {
+        protocol: 'https',
+        hostname: 'player-yt-spa.vercel.app',
+        port: '',
+        pathname: '/_next/**',
+      }
     ],
   },
    redirects: async ()=> {

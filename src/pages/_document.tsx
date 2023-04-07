@@ -15,7 +15,11 @@ export default function Document() {
           property="og:description"
           content="Ouça agora as Top 100 músicas sertanejas mais tocadas de 2023."
         />
-        <meta property="og:image" content="../assets/images/festival_widexl.webp" />
+        <meta
+          property="og:image"
+          itemProp="image"
+          content="https://player-yt-spa.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffestival_widexl.4f8ed320.webp&w=1920&q=75"
+        />
 
         <meta name="twitter:card" content="summary_large_image" />
 
@@ -24,7 +28,10 @@ export default function Document() {
           name="twitter:description"
           content="Ouça agora as Top 100 músicas sertanejas mais tocadas de 2023."
         />
-        <meta name="twitter:image" content="../assets/images/festival_widexl.webp" />
+        <meta
+          name="twitter:image"
+          content="https://player-yt-spa.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffestival_widexl.4f8ed320.webp&w=1920&q=75"
+        />
       </Head>
       <body>
         <Main />
