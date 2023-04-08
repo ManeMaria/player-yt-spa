@@ -58,7 +58,7 @@ export const ViewMusic = () => {
         </Text>
         <Grid gridTemplateColumns="auto auto auto">
           <IconButton
-            isDisabled={current === 0}
+            isDisabled={current === 0 || isFirstRender}
             icon={<PrevIcon />}
             aria-label={'anterior'}
             onClick={() => {
@@ -84,7 +84,7 @@ export const ViewMusic = () => {
           </Link>
 
           <IconButton
-            isDisabled={current === items.length - 1}
+            isDisabled={current === items.length - 1 || isFirstRender}
             icon={<NextIcon />}
             aria-label={'próximo'}
             onClick={() => {
