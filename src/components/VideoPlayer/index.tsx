@@ -5,7 +5,7 @@ import React from 'react';
 import { PlayIcon } from '@/assets/icons/PlayIcon';
 import { ItemsContextProps } from '@/context/ItemsProvider';
 
-import phone from '../../assets/images/fone de ouvido.png';
+import phone from '../../assets/images/fone-de-ouvido_optimized.png';
 
 type VideoPlayerProps = ItemsContextProps & {
   setSelectedVideo: (id: string) => void;
