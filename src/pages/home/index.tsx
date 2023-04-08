@@ -9,9 +9,10 @@ import { ButtonsPlayer } from '@/components/ButtonsPlayer';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { PLAYLISTS_IDS } from '@/config';
 import { useItemsContext } from '@/context/ItemsProvider';
+import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
 
 import { PlayCicleIcon } from '../../assets/icons/PlayCicleIcon';
-import backggroundImage from '../../assets/images/festival_widexl.webp';
+import backggroundImage from '../../assets/images/festival_widexl.png';
 import { MainLayout } from '../../components/layout';
 import { Page } from '../../components/Page';
 
@@ -43,6 +44,8 @@ const LinkButton = chakra(Button, {
 });
 
 export default function Home({ data, isFirstRender }: { data: PlayList; isFirstRender: boolean }) {
+  const { isInstagramBrowser } = useIdentifyInstagramBrowser();
+
   const itemsCtx = useItemsContext();
   const { query } = useRouter();
   const items = data?.items?.filter((item) => 'Deleted video' !== item.snippet.title) || [];
@@ -86,7 +89,11 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
               />
             </Box>
             <Grid justifySelf={{ base: 'center', lg: 'start' }} rowGap="1.5rem">
-              <Heading as="h1" fontSize={{ base: '2.9rem', xl: '4.5rem' }} fontWeight="400">
+              <Heading
+                as="h1"
+                fontSize={{ base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4.5rem' }}
+                fontWeight="400"
+              >
                 Ouça agora as
                 <br />
                 <Span>Top 100 músicas</Span>

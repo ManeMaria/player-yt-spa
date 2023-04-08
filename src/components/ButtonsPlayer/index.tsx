@@ -10,6 +10,7 @@ const CustomButton = chakra(Button, {
     w: '100%',
     h: '100%',
     display: 'flex',
+
     alignItems: 'center',
     transition: 'all 0.2s ease-in-out',
     fontSize: {
@@ -71,7 +72,9 @@ export const ButtonsPlayer = () => {
       {LIST_PLAYLISTS.map((playlist) => (
         <Link key={playlist.id} href={`/home?id=${playlist.id}`} replace>
           <CustomButton>
-            <Text ml="auto">{playlist.title}</Text>
+            <Text ml="auto" isTruncated>
+              {playlist.title}
+            </Text>
             <PlayIcon boxSize={{ base: '10px', lg: '20px' }} fill="red.500" ml="auto" />
           </CustomButton>
         </Link>

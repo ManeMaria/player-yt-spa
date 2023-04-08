@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { ReactNode, useEffect, useRef } from 'react';
 
-import backggroundImage from '../../assets/images/festival_widexl.webp';
+import backggroundImage from '../../assets/images/festival_widexl.png';
 import { MotionBox } from '../MotionBox';
 
 type PageProps = {
@@ -56,7 +56,7 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
             {
               url: backggroundImage.src,
               alt: 'plateia sertaneja',
-              type: 'webp',
+              type: 'png',
               height: 600,
               width: 800,
               secureUrl: backggroundImage.src,
@@ -64,7 +64,7 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
             {
               url: backggroundImage.src,
               alt: 'plateia sertaneja',
-              type: 'webp',
+              type: 'png',
               height: 150,
               width: 200,
               secureUrl: backggroundImage.src,
