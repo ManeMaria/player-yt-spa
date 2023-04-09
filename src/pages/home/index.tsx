@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 
 import { ButtonsPlayer } from '@/components/ButtonsPlayer';
 import { VideoPlayer } from '@/components/VideoPlayer';
+import { ViewMusic } from '@/components/ViewMusic';
 import { PLAYLISTS_IDS } from '@/config';
 import { useItemsContext } from '@/context/ItemsProvider';
 import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
@@ -66,7 +67,7 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
         <Box pos="absolute" w="99vw" h="100vh" top="0" zIndex="0" opacity="0.1">
           <Image src={backggroundImage} fill alt="bg" />
         </Box>
-        <Grid rowGap="4rem" zIndex="1">
+        <Grid rowGap="4rem" zIndex="1" h="100%">
           <Grid
             alignItems="center"
             width="100%"
@@ -82,7 +83,6 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
                 setSelectedVideo={(id) =>
                   itemsCtx?.setValues((values) => ({
                     ...values,
-
                     videoId: id,
                   }))
                 }
@@ -115,6 +115,7 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
           <ButtonsPlayer />
         </Grid>
       </Page>
+      <ViewMusic />
     </MainLayout>
   );
 }

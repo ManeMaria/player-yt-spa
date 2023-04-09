@@ -4,6 +4,8 @@ import React from 'react';
 
 import { PlayIcon } from '@/assets/icons/PlayIcon';
 
+import { addStringLastPhrase } from './utils/addStringLastPhrase';
+
 const CustomButton = chakra(Button, {
   baseStyle: {
     bg: 'gray.500',
@@ -15,7 +17,7 @@ const CustomButton = chakra(Button, {
     transition: 'all 0.2s ease-in-out',
     fontSize: {
       base: '0.9rem',
-      xl: '1.5rem',
+      xl: '1.3rem',
     },
     fontWeight: 'normal',
     borderRadius: '10px',
@@ -73,7 +75,7 @@ export const ButtonsPlayer = () => {
         <Link key={playlist.id} href={`/home?id=${playlist.id}`} replace>
           <CustomButton>
             <Text ml="auto" isTruncated>
-              {playlist.title}
+              {addStringLastPhrase(playlist.title)}
             </Text>
             <PlayIcon boxSize={{ base: '10px', lg: '20px' }} fill="red.500" ml="auto" />
           </CustomButton>
