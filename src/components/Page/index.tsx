@@ -79,7 +79,7 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
           maxImagePreview: 'large',
         }}
       />
-      <Box w="100%" {...restProps}>
+      <Box w="98%" {...restProps}>
         <Container centerContent p="0" h="100%" maxW="133rem">
           {children}
         </Container>

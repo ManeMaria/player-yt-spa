@@ -40,11 +40,12 @@ export const ViewMusic = () => {
     <Flex
       py="0.4rem"
       w={isInstagramBrowser ? '100vw' : '100%'}
-      minH="5rem"
+      maxH="5rem"
       justifyContent="center"
       alignItems="center"
       bg="red.500"
       zIndex="1"
+      mt="4rem"
     >
       <>
         <Image

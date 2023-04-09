@@ -1,6 +1,6 @@
 import { Grid, Text, chakra } from '@chakra-ui/react';
 
-import { ViewMusic } from '../ViewMusic';
+import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -11,22 +11,29 @@ const Footer = chakra('footer', {
     display: 'grid',
     placeItems: 'center',
     minH: '8vh',
-    fontSize: 'min(2vw, 1.2rem)',
-    mt: '4rem',
     w: '100%',
     zIndex: '1',
   },
 });
 
+const Main = chakra('main', {
+  baseStyle: {
+    minH: '100vh',
+    display: 'grid',
+    placeItems: 'center',
+  },
+});
+
 export const MainLayout = ({ children }: LayoutProps) => {
+  const { isInstagramBrowser } = useIdentifyInstagramBrowser();
   return (
     <>
-      <main>{children}</main>
-
+      <Main>{children}</Main>
       <Footer>
-        <ViewMusic />
         <Grid minH="8vh" placeItems="center">
-          <Text>Todos os direitos reservados (All rights reserved) - 2024</Text>
+          <Text fontSize={isInstagramBrowser ? '0.8rem' : '1rem'}>
+            Todos os direitos reservados (All rights reserved) - 2024
+          </Text>
         </Grid>
       </Footer>
     </>
