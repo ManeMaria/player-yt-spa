@@ -3,7 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    // domains: ['https://*'],
+  
     remotePatterns: [
       {
         protocol: 'https',
@@ -17,6 +17,13 @@ const nextConfig = {
         hostname: 'player-yt-spa.vercel.app',
         port: '',
         pathname: '/_next/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        port: '',
+        pathname: '/image/**',
       }
     ],
   },
@@ -24,8 +31,8 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/home',
-        permanent: true,
+        destination: '/sptf',
+        permanent: false,
       },
      
     ]

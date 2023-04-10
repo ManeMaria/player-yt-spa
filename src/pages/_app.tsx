@@ -1,5 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 
 import { ItemsProvider } from '@/context/ItemsProvider';
 import { theme } from '@/styles';
@@ -10,16 +11,18 @@ console.log(
   ' font-size: 1rem; font-weight: bold',
 );
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <ChakraProvider
-      theme={{
-        ...theme,
-      }}
-    >
-      <ItemsProvider>
-        <Component {...pageProps} />
-      </ItemsProvider>
-    </ChakraProvider>
+    <SessionProvider session={session}>
+      <ChakraProvider
+        theme={{
+          ...theme,
+        }}
+      >
+        <ItemsProvider>
+          <Component {...pageProps} />
+        </ItemsProvider>
+      </ChakraProvider>
+    </SessionProvider>
   );
 }

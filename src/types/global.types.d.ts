@@ -74,3 +74,19 @@ interface PageInfo {
   totalResults: number;
   resultsPerPage: number;
 }
+
+interface SpotifyAuthResponse {
+  expires: string;
+  user: SpotifyUser;
+}
+
+interface SpotifyUser {
+  email: string;
+  image: string;
+  name: string;
+}
+
+interface RequestSheetGoogle {
+  email: string;
+  name: string;
+}
