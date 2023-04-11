@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Heading, Text, chakra } from '@chakra-ui/react';
+import { Box, Container, Grid, Heading, Text, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -20,27 +20,6 @@ const Span = chakra('span', {
   },
 });
 
-const LinkButton = chakra(Button, {
-  baseStyle: {
-    bg: 'red.500',
-    color: 'white.500',
-    fontWeight: 'normal',
-    borderRadius: '49px',
-    fontSize: 'min(4vw, 1.7rem)',
-    transition: 'all 0.2s ease-in-out',
-    p: '2rem 0',
-    textAlign: 'center',
-    _hover: {
-      color: 'black.500',
-      bg: 'white.500',
-      svg: {
-        fill: 'black.500',
-        transition: 'all 0.2s ease-in-out',
-      },
-    },
-  },
-});
-
 export default function Home({ data }: { data: PlayList }) {
   const { isInstagramBrowser } = useIdentifyInstagramBrowser();
 
@@ -52,7 +31,7 @@ export default function Home({ data }: { data: PlayList }) {
     baseStyle: {
       as: 'h1',
       fontSize: { base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4rem' },
-      fontWeight: '400',
+      fontWeight: '500',
     },
   });
 
@@ -75,7 +54,7 @@ export default function Home({ data }: { data: PlayList }) {
           <Grid rowGap="1.5rem">
             <DefaultHeader>
               Ouça agora as <Span>Top 100 músicas</Span>
-              <Span>sertanejas</Span>
+              <Span> sertanejas</Span>
               <br /> mais tocadas de 2023.
             </DefaultHeader>
             {/* <Box w="70%">
@@ -87,17 +66,20 @@ export default function Home({ data }: { data: PlayList }) {
               </Link>
             </Box> */}
           </Grid>
+
           <Grid width="100%" gridTemplateColumns={{ base: '1fr' }} rowGap="4rem">
-            <VideoPlayer
-              videoId={itemsCtx?.values.videoId}
-              items={items}
-              setSelectedVideo={(id) =>
-                itemsCtx?.setValues((values) => ({
-                  ...values,
-                  videoId: id,
-                }))
-              }
-            />
+            <Box>
+              <VideoPlayer
+                videoId={itemsCtx?.values.videoId}
+                items={items}
+                setSelectedVideo={(id) =>
+                  itemsCtx?.setValues((values) => ({
+                    ...values,
+                    videoId: id,
+                  }))
+                }
+              />
+            </Box>
           </Grid>
           <ButtonsPlayer />
         </Grid>
@@ -107,7 +89,6 @@ export default function Home({ data }: { data: PlayList }) {
         <Grid as="section" rowGap="4rem" my="4rem" px="7vw">
           <DefaultHeader
             as="h2"
-            fontWeight="bold"
             fontSize={{ base: isInstagramBrowser ? '2rem' : '2.5rem', xl: '3.7rem' }}
           >
             As músicas Sertanejas Mais Tocadas De 2023 no Spotify e Youtbe

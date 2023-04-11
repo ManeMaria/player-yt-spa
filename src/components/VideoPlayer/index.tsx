@@ -22,7 +22,6 @@ const ListMusic = ({ items = [], setSelectedVideo, videoId }: VideoPlayerProps) 
         const width = item.snippet.thumbnails.default?.width || 0;
         const height = item.snippet.thumbnails.default?.height || 0;
         const url = item.snippet.thumbnails.default?.url || '';
-        console.log('item.snippet.title', item);
         const equalId = item.snippet.resourceId.videoId === videoId;
         return (
           <Button
