@@ -84,7 +84,11 @@ export const ButtonsPlayer = () => {
         Outras playlists:
       </Text>
       {LIST_PLAYLISTS.map((playlist) => (
-        <Link key={playlist.id} href={`/home?id=${playlist.id}`} replace>
+        <Link
+          key={playlist.id}
+          href={`https://www.youtube.com/playlist?list=${playlist.id}`}
+          target="_black"
+        >
           <CustomButton>
             <Tooltip label={addStringLastPhrase(playlist.title)}>
               <Text ml="auto" isTruncated>
