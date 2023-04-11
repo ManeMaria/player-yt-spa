@@ -4,21 +4,28 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import backggroundImage from '@/assets/images/festival_widexl.png';
 import { ButtonsPlayer } from '@/components/ButtonsPlayer';
+import { MainLayout } from '@/components/layout';
+import { Page } from '@/components/Page';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { ViewMusic } from '@/components/ViewMusic';
+import { PLAYLISTS_IDS } from '@/config';
 import { useItemsContext } from '@/context/ItemsProvider';
 import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
 
-import backggroundImage from '../../assets/images/festival_widexl.png';
-import { MainLayout } from '../../components/layout';
-import { Page } from '../../components/Page';
-
-const Span = chakra('span', {
+const Span = chakra('a', {
   baseStyle: {
     fontWeight: '900',
+    textDecoration: 'none',
   },
 });
+
+const href = {
+  href: `https://www.youtube.com/playlist?list=${PLAYLISTS_IDS[0]}`,
+  target: '_blank',
+  textDecoration: 'none',
+};
 
 export default function Home({ data }: { data: PlayList }) {
   const { isInstagramBrowser } = useIdentifyInstagramBrowser();
@@ -53,18 +60,13 @@ export default function Home({ data }: { data: PlayList }) {
         <Grid rowGap="4rem" zIndex="1" h="100%" pt="8vh" px="7vw">
           <Grid rowGap="1.5rem">
             <DefaultHeader>
-              Ouça agora as <Span>Top 100 músicas</Span>
-              <Span> sertanejas</Span>
+              Ouça agora as{' '}
+              <Span {...href} target="_blank">
+                Top 100 músicas
+              </Span>
+              <Span {...href}> sertanejas</Span>
               <br /> mais tocadas de 2023.
             </DefaultHeader>
-            {/* <Box w="70%">
-              <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
-                <LinkButton w="100%">
-                  <PlayCicleIcon boxSize="30px" mr="0.5rem" fill="white.500" />
-                  Ouvir agora!
-                </LinkButton>
-              </Link>
-            </Box> */}
           </Grid>
 
           <Grid width="100%" gridTemplateColumns={{ base: '1fr' }} rowGap="4rem">
@@ -86,20 +88,22 @@ export default function Home({ data }: { data: PlayList }) {
       </Page>
       <ViewMusic />
       <Container centerContent p="0" maxW="133rem">
-        <Grid as="section" rowGap="4rem" my="4rem" px="7vw">
-          <DefaultHeader
-            as="h2"
-            fontSize={{ base: isInstagramBrowser ? '2rem' : '2.5rem', xl: '3.7rem' }}
-          >
-            As músicas Sertanejas Mais Tocadas De 2023 no Spotify e Youtbe
-          </DefaultHeader>
+        <Grid as="section" rowGap="2rem" my="4rem" px="7vw">
+          <Span fontWeight="normal" {...href}>
+            <DefaultHeader
+              as="h2"
+              fontSize={{ base: isInstagramBrowser ? '2rem' : '2.5rem', xl: '3.7rem' }}
+            >
+              As músicas Sertanejas mais Tocadas <br /> de 2023 no Spotify e Youtube
+            </DefaultHeader>
+          </Span>
           <Box>
             <Text fontSize="min(3.5vw, 1.7rem)">
-              Somos o site <Span>Sertanejas Mais Tocadas De 2023</Span>, reunimos todas as músicas
-              sertanejas <br /> mais tocadas de 2023 em algumas playlists para facilitar a sua
-              curtição! Conheça agora <br />
+              Somos o site <Span {...href}>Sertanejas mais Tocadas De 2023</Span>, reunimos todas as
+              músicas sertanejas <br /> mais tocadas de 2023 em algumas playlists para facilitar a
+              sua curtição! Conheça agora <br />
               mesmo a playlists com{' '}
-              <Span>
+              <Span {...href}>
                 Músicas Sertanejas Mais Tocadas de 2023, o Top 100 Brasil,
                 <br /> Top 100 Spotify, Top Brasil no Youtube,
               </Span>{' '}
