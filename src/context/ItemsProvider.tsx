@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, createContext, useContext, useState } from 'r
 export type ItemsContextProps = {
   videoId?: string;
   items?: Item[];
-  isFirstRender: boolean;
 };
 
 const ItemsContext = createContext<{
@@ -14,7 +13,6 @@ export const ItemsProvider = ({ children }: { children: React.ReactNode }) => {
   const [values, setValues] = useState<ItemsContextProps>({
     videoId: '',
     items: [],
-    isFirstRender: true,
   });
 
   return <ItemsContext.Provider value={{ values, setValues }}>{children}</ItemsContext.Provider>;
