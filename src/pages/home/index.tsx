@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Heading, Text, chakra } from '@chakra-ui/react';
+import { Box, Button, Container, Grid, Heading, Text, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -51,7 +51,7 @@ export default function Home({ data }: { data: PlayList }) {
   const DefaultHeader = chakra(Heading, {
     baseStyle: {
       as: 'h1',
-      fontSize: { base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '3rem' },
+      fontSize: { base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4rem' },
       fontWeight: '400',
     },
   });
@@ -71,53 +71,62 @@ export default function Home({ data }: { data: PlayList }) {
         <Box pos="absolute" w="99vw" h="100vh" top="0" zIndex="0" opacity="0.1">
           <Image src={backggroundImage} fill alt="bg" />
         </Box>
-        <Grid rowGap="4rem" zIndex="1" h="100%">
-          <Grid
-            alignItems="center"
-            width="100%"
-            gridTemplateColumns={{ base: '1fr', lg: '1fr auto' }}
-            rowGap="4rem"
-            pt="8vh"
-          >
-            <Box>
-              <VideoPlayer
-                videoId={itemsCtx?.values.videoId}
-                items={items}
-                setSelectedVideo={(id) =>
-                  itemsCtx?.setValues((values) => ({
-                    ...values,
-                    videoId: id,
-                  }))
-                }
-              />
-            </Box>
+        <Grid rowGap="4rem" zIndex="1" h="100%" pt="8vh" px="7vw">
+          <Grid rowGap="1.5rem">
+            <DefaultHeader>
+              Ouça agora as <Span>Top 100 músicas</Span>
+              <Span>sertanejas</Span>
+              <br /> mais tocadas de 2023.
+            </DefaultHeader>
+            {/* <Box w="70%">
+              <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
+                <LinkButton w="100%">
+                  <PlayCicleIcon boxSize="30px" mr="0.5rem" fill="white.500" />
+                  Ouvir agora!
+                </LinkButton>
+              </Link>
+            </Box> */}
+          </Grid>
+          <Grid width="100%" gridTemplateColumns={{ base: '1fr' }} rowGap="4rem">
+            <VideoPlayer
+              videoId={itemsCtx?.values.videoId}
+              items={items}
+              setSelectedVideo={(id) =>
+                itemsCtx?.setValues((values) => ({
+                  ...values,
+                  videoId: id,
+                }))
+              }
+            />
           </Grid>
           <ButtonsPlayer />
         </Grid>
       </Page>
       <ViewMusic />
-      <Grid as="section" rowGap="4rem" my="4rem" px="7vw">
-        <DefaultHeader
-          as="h2"
-          fontWeight="bold"
-          fontSize={{ base: isInstagramBrowser ? '2rem' : '2.5rem', xl: '3.7rem' }}
-        >
-          As músicas Sertanejas Mais Tocadas De 2023 no Spotify e Youtbe
-        </DefaultHeader>
-        <Box>
-          <Text fontSize="min(3.5vw, 1.7rem)">
-            Somos o site <Span>Sertanejas Mais Tocadas De 2023</Span>, reunimos todas as músicas
-            sertanejas <br /> mais tocadas de 2023 em algumas playlists para facilitar a sua
-            curtição! Conheça agora <br />
-            mesmo a playlists com{' '}
-            <Span>
-              Músicas Sertanejas Mais Tocadas de 2023, o Top 100 Brasil,
-              <br /> Top 100 Spotify, Top Brasil no Youtube,
-            </Span>{' '}
-            todas reunidas em um só lugar.
-          </Text>
-        </Box>
-      </Grid>
+      <Container centerContent p="0" maxW="133rem">
+        <Grid as="section" rowGap="4rem" my="4rem" px="7vw">
+          <DefaultHeader
+            as="h2"
+            fontWeight="bold"
+            fontSize={{ base: isInstagramBrowser ? '2rem' : '2.5rem', xl: '3.7rem' }}
+          >
+            As músicas Sertanejas Mais Tocadas De 2023 no Spotify e Youtbe
+          </DefaultHeader>
+          <Box>
+            <Text fontSize="min(3.5vw, 1.7rem)">
+              Somos o site <Span>Sertanejas Mais Tocadas De 2023</Span>, reunimos todas as músicas
+              sertanejas <br /> mais tocadas de 2023 em algumas playlists para facilitar a sua
+              curtição! Conheça agora <br />
+              mesmo a playlists com{' '}
+              <Span>
+                Músicas Sertanejas Mais Tocadas de 2023, o Top 100 Brasil,
+                <br /> Top 100 Spotify, Top Brasil no Youtube,
+              </Span>{' '}
+              todas reunidas em um só lugar.
+            </Text>
+          </Box>
+        </Grid>
+      </Container>
     </MainLayout>
   );
 }
