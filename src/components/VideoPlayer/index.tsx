@@ -1,20 +1,18 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { PlayIcon } from '@/assets/icons/PlayIcon';
 import { ItemsContextProps } from '@/context/ItemsProvider';
 
-import phone from '../../assets/images/fone-de-ouvido_optimized.png';
-
 type VideoPlayerProps = ItemsContextProps & {
   setSelectedVideo: (id: string) => void;
-  isFirstRender: boolean;
+  setShowIframe?: () => void;
 };
 
-const ListMusic = ({ items = [], setSelectedVideo, videoId }: VideoPlayerProps) => {
+const ListMusic = ({ items = [], setSelectedVideo, videoId, setShowIframe }: VideoPlayerProps) => {
   return (
-    <Box>
+    <Flex justifyContent={{ base: 'center' }} flexWrap="wrap">
       {items.map((item) => {
         const width = item.snippet.thumbnails.default?.width;
         const height = item.snippet.thumbnails.default?.height;
@@ -26,7 +24,10 @@ const ListMusic = ({ items = [], setSelectedVideo, videoId }: VideoPlayerProps) 
             border="solid 2px"
             borderColor={equalId ? 'red.500' : 'transparent'}
             key={item.id}
-            onClick={() => setSelectedVideo(item.snippet.resourceId.videoId)}
+            onClick={() => {
+              setSelectedVideo(item.snippet.resourceId.videoId);
+              setShowIframe?.();
+            }}
             variant="unstyled"
             boxSize="auto"
             position="relative"
@@ -77,64 +78,52 @@ const ListMusic = ({ items = [], setSelectedVideo, videoId }: VideoPlayerProps) 
           </Button>
         );
       })}
-    </Box>
+    </Flex>
   );
 };
 
-export const VideoPlayer = ({
-  videoId = '',
-  items = [],
-  setSelectedVideo,
-  isFirstRender,
-}: VideoPlayerProps) => {
-  return (
-    <>
-      {!videoId || isFirstRender ? (
-        <Box
-          w={{
-            base: '75vw',
-            lg: '35vw',
-          }}
-          maxW="40rem"
-        >
-          <Image src={phone} alt="fone de ouvido vermelho" priority />
-        </Box>
-      ) : (
-        <Box
-          display="flex"
-          justifySelf="center"
-          width={{ base: '90vw', lg: '40vw' }}
-          height={{ base: '60vw', md: '40vh' }}
-        >
-          <Box
-            overflowY="scroll"
-            h="40vh"
-            w="40%"
-            display={{ base: 'none', lg: 'block' }}
-            sx={{
-              '&::-webkit-scrollbar': {
-                display: 'none',
-              },
-            }}
-          >
-            <ListMusic
-              items={items}
-              setSelectedVideo={setSelectedVideo}
-              videoId={videoId}
-              isFirstRender={isFirstRender}
-            />
-          </Box>
+export const VideoPlayer = ({ videoId = '', items = [], setSelectedVideo }: VideoPlayerProps) => {
+  const [showIframe, setShowIframe] = useState(false);
 
-          <iframe
-            width="100%"
-            height="100%"
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        </Box>
-      )}
-    </>
+  return (
+    <Box
+      display="flex"
+      justifySelf="center"
+      width={{ base: '90vw', lg: '50vw' }}
+      height={{ base: '60vw', md: '40vh' }}
+      mb={{ base: '4rem', lg: '0' }}
+    >
+      <Box
+        overflowY="scroll"
+        h="40vh"
+        w={showIframe ? '30%' : '100%'}
+        display={{ base: showIframe ? 'none' : 'grid', lg: 'grid' }}
+        sx={{
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        }}
+      >
+        <ListMusic
+          items={items}
+          setSelectedVideo={setSelectedVideo}
+          videoId={videoId}
+          setShowIframe={() => {
+            !showIframe && setShowIframe(true);
+          }}
+        />
+      </Box>
+
+      <Box boxSize={showIframe ? '100%' : '0%'} visibility={showIframe ? 'visible' : 'hidden'}>
+        <iframe
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+          title="YouTube video player"
+          allow="autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
+          allowFullScreen
+        ></iframe>
+      </Box>
+    </Box>
   );
 };

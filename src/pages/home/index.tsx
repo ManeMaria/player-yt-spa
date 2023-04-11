@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Heading, chakra } from '@chakra-ui/react';
+import { Box, Button, Grid, Heading, Text, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -44,18 +44,25 @@ const LinkButton = chakra(Button, {
   },
 });
 
-export default function Home({ data, isFirstRender }: { data: PlayList; isFirstRender: boolean }) {
+export default function Home({ data }: { data: PlayList }) {
   const { isInstagramBrowser } = useIdentifyInstagramBrowser();
 
   const itemsCtx = useItemsContext();
   const { query } = useRouter();
   const items = data?.items?.filter((item) => 'Deleted video' !== item.snippet.title) || [];
 
+  const DefaultHeader = chakra(Heading, {
+    baseStyle: {
+      as: 'h1',
+      fontSize: { base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4.5rem' },
+      fontWeight: '400',
+    },
+  });
+
   useEffect(() => {
     itemsCtx?.setValues({
       videoId: data?.items?.[0]?.snippet.resourceId.videoId || '',
       items,
-      isFirstRender,
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,11 +82,10 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
             gap="4rem"
             pt="8vh"
           >
-            <Box justifySelf={itemsCtx?.values.videoId ? 'start' : 'center'}>
+            <Box>
               <VideoPlayer
                 videoId={itemsCtx?.values.videoId}
                 items={items}
-                isFirstRender={isFirstRender}
                 setSelectedVideo={(id) =>
                   itemsCtx?.setValues((values) => ({
                     ...values,
@@ -88,12 +94,8 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
                 }
               />
             </Box>
-            <Grid justifySelf={{ base: 'center', lg: 'start' }} rowGap="1.5rem">
-              <Heading
-                as="h1"
-                fontSize={{ base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4.5rem' }}
-                fontWeight="400"
-              >
+            <Grid rowGap="1.5rem" justifySelf={{ base: 'center' }}>
+              <DefaultHeader>
                 Ouça agora as
                 <br />
                 <Span>Top 100 músicas</Span>
@@ -101,7 +103,7 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
                 <Span>sertanejas</Span> mais
                 <br />
                 tocadas de 2023.
-              </Heading>
+              </DefaultHeader>
               <Box w="70%">
                 <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
                   <LinkButton w="100%">
@@ -116,6 +118,24 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
         </Grid>
       </Page>
       <ViewMusic />
+      <Grid as="section" rowGap="4rem" my="4rem" px="7vw">
+        <DefaultHeader as="h2" fontWeight="bold">
+          As músicas Sertanejas Mais Tocadas De 2023 no Spotify e Youtbe
+        </DefaultHeader>
+        <Box>
+          <Text fontSize="min(3.5vw, 1.7rem)">
+            Somos o site <Span>Sertanejas Mais Tocadas De 2023</Span>, reunimos todas as músicas
+            sertanejas <br /> mais tocadas de 2023 em algumas playlists para facilitar a sua
+            curtição! Conheça agora <br />
+            mesmo a playlists com{' '}
+            <Span>
+              Músicas Sertanejas Mais Tocadas de 2023, o Top 100 Brasil,
+              <br /> Top 100 Spotify, Top Brasil no Youtube,
+            </Span>{' '}
+            todas reunidas em um só lugar.
+          </Text>
+        </Box>
+      </Grid>
     </MainLayout>
   );
 }
@@ -123,7 +143,6 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
 export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
   res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
   const id = query?.id || 'PL7lemN72eWJr4RLSPdPIlvjdyd_iBUXol';
-  const isFirstRender = !query?.id;
 
   const response = await fetch(
     `https://www.googleapis.com/youtube/v3/playlistItems/?part=snippet&maxResults=50&playlistId=${id}&key=${process.env.API_KEY_GOOGLE}`,
@@ -134,7 +153,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }) => 
   return {
     props: {
       data: data || {},
-      isFirstRender,
     },
   };
 };

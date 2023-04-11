@@ -26,7 +26,7 @@ export const ViewMusic = () => {
   const itemsCtx = useItemsContext();
   const [current, setCurrent] = useState(0);
   const items = itemsCtx?.values?.items || [];
-  const isFirstRender = itemsCtx?.values?.isFirstRender || false;
+
   useEffect(() => {
     if (itemsCtx?.values?.videoId) {
       setCurrent(findPositionCurrentVideo(items, itemsCtx?.values?.videoId) || 0);
@@ -59,7 +59,7 @@ export const ViewMusic = () => {
         </Text>
         <Grid gridTemplateColumns="auto auto auto">
           <IconButton
-            isDisabled={current === 0 || isFirstRender}
+            isDisabled={current === 0}
             icon={<PrevIcon />}
             aria-label={'anterior'}
             onClick={() => {
@@ -76,16 +76,11 @@ export const ViewMusic = () => {
           />
 
           <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
-            <IconButton
-              icon={<PlayIcon />}
-              aria-label={'tocar'}
-              isDisabled={!isFirstRender}
-              {...defaultStyles}
-            />
+            <IconButton icon={<PlayIcon />} aria-label={'tocar'} {...defaultStyles} />
           </Link>
 
           <IconButton
-            isDisabled={current === items.length - 1 || isFirstRender}
+            isDisabled={current === items.length - 1}
             icon={<NextIcon />}
             aria-label={'próximo'}
             onClick={() => {
