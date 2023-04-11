@@ -1,18 +1,15 @@
 import { Box, Button, Grid, Heading, Text, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import { ButtonsPlayer } from '@/components/ButtonsPlayer';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { ViewMusic } from '@/components/ViewMusic';
-import { PLAYLISTS_IDS } from '@/config';
 import { useItemsContext } from '@/context/ItemsProvider';
 import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
 
-import { PlayCicleIcon } from '../../assets/icons/PlayCicleIcon';
 import backggroundImage from '../../assets/images/festival_widexl.png';
 import { MainLayout } from '../../components/layout';
 import { Page } from '../../components/Page';
@@ -54,7 +51,7 @@ export default function Home({ data }: { data: PlayList }) {
   const DefaultHeader = chakra(Heading, {
     baseStyle: {
       as: 'h1',
-      fontSize: { base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4.5rem' },
+      fontSize: { base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '3rem' },
       fontWeight: '400',
     },
   });
@@ -79,7 +76,7 @@ export default function Home({ data }: { data: PlayList }) {
             alignItems="center"
             width="100%"
             gridTemplateColumns={{ base: '1fr', lg: '1fr auto' }}
-            gap="4rem"
+            rowGap="4rem"
             pt="8vh"
           >
             <Box>
@@ -94,32 +91,17 @@ export default function Home({ data }: { data: PlayList }) {
                 }
               />
             </Box>
-            <Grid rowGap="1.5rem" justifySelf={{ base: 'center' }}>
-              <DefaultHeader>
-                Ouça agora as
-                <br />
-                <Span>Top 100 músicas</Span>
-                <br />
-                <Span>sertanejas</Span> mais
-                <br />
-                tocadas de 2023.
-              </DefaultHeader>
-              <Box w="70%">
-                <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
-                  <LinkButton w="100%">
-                    <PlayCicleIcon boxSize="30px" mr="0.5rem" fill="white.500" />
-                    Ouvir agora!
-                  </LinkButton>
-                </Link>
-              </Box>
-            </Grid>
           </Grid>
           <ButtonsPlayer />
         </Grid>
       </Page>
       <ViewMusic />
       <Grid as="section" rowGap="4rem" my="4rem" px="7vw">
-        <DefaultHeader as="h2" fontWeight="bold">
+        <DefaultHeader
+          as="h2"
+          fontWeight="bold"
+          fontSize={{ base: isInstagramBrowser ? '2rem' : '2.5rem', xl: '3.7rem' }}
+        >
           As músicas Sertanejas Mais Tocadas De 2023 no Spotify e Youtbe
         </DefaultHeader>
         <Box>
