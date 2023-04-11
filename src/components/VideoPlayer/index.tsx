@@ -1,16 +1,15 @@
 import { Box, Button, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { PlayIcon } from '@/assets/icons/PlayIcon';
 import { ItemsContextProps } from '@/context/ItemsProvider';
 
 type VideoPlayerProps = ItemsContextProps & {
   setSelectedVideo: (id: string) => void;
-  setShowIframe?: () => void;
 };
 
-const ListMusic = ({ items = [], setSelectedVideo, videoId, setShowIframe }: VideoPlayerProps) => {
+const ListMusic = ({ items = [], setSelectedVideo, videoId }: VideoPlayerProps) => {
   return (
     <Flex justifyContent={{ base: 'center' }} flexWrap="wrap">
       {items.map((item) => {
@@ -26,7 +25,6 @@ const ListMusic = ({ items = [], setSelectedVideo, videoId, setShowIframe }: Vid
             key={item.id}
             onClick={() => {
               setSelectedVideo(item.snippet.resourceId.videoId);
-              setShowIframe?.();
             }}
             variant="unstyled"
             boxSize="auto"
@@ -83,8 +81,6 @@ const ListMusic = ({ items = [], setSelectedVideo, videoId, setShowIframe }: Vid
 };
 
 export const VideoPlayer = ({ videoId = '', items = [], setSelectedVideo }: VideoPlayerProps) => {
-  const [showIframe, setShowIframe] = useState(false);
-
   return (
     <Box
       display="flex"
@@ -96,29 +92,22 @@ export const VideoPlayer = ({ videoId = '', items = [], setSelectedVideo }: Vide
       <Box
         overflowY="scroll"
         h="40vh"
-        w={showIframe ? '30%' : '100%'}
-        display={{ base: showIframe ? 'none' : 'grid', lg: 'grid' }}
+        w="30%"
+        display={{ base: 'none', lg: 'grid' }}
         sx={{
           '&::-webkit-scrollbar': {
             display: 'none',
           },
         }}
       >
-        <ListMusic
-          items={items}
-          setSelectedVideo={setSelectedVideo}
-          videoId={videoId}
-          setShowIframe={() => {
-            !showIframe && setShowIframe(true);
-          }}
-        />
+        <ListMusic items={items} setSelectedVideo={setSelectedVideo} videoId={videoId} />
       </Box>
 
-      <Box boxSize={showIframe ? '100%' : '0%'} visibility={showIframe ? 'visible' : 'hidden'}>
+      <Box boxSize={{ base: '100%' }}>
         <iframe
           width="100%"
           height="100%"
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&showinfo=0&rel=0&modestbranding=0&playsinline=0`}
           title="YouTube video player"
           allow="autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
           allowFullScreen
