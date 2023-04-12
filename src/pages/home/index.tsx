@@ -1,61 +1,51 @@
-import { Box, Button, Grid, Heading, chakra } from '@chakra-ui/react';
+import { Box, Container, Grid, Heading, Text, chakra } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import backggroundImage from '@/assets/images/festival_widexl.png';
 import { ButtonsPlayer } from '@/components/ButtonsPlayer';
+import { MainLayout } from '@/components/layout';
+import { Page } from '@/components/Page';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { ViewMusic } from '@/components/ViewMusic';
 import { PLAYLISTS_IDS } from '@/config';
 import { useItemsContext } from '@/context/ItemsProvider';
 import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
 
-import { PlayCicleIcon } from '../../assets/icons/PlayCicleIcon';
-import backggroundImage from '../../assets/images/festival_widexl.png';
-import { MainLayout } from '../../components/layout';
-import { Page } from '../../components/Page';
-
-const Span = chakra('span', {
+const Span = chakra('a', {
   baseStyle: {
     fontWeight: '900',
+    textDecoration: 'none',
   },
 });
 
-const LinkButton = chakra(Button, {
-  baseStyle: {
-    bg: 'red.500',
-    color: 'white.500',
-    fontWeight: 'normal',
-    borderRadius: '49px',
-    fontSize: 'min(4vw, 1.7rem)',
-    transition: 'all 0.2s ease-in-out',
-    p: '2rem 0',
-    textAlign: 'center',
-    _hover: {
-      color: 'black.500',
-      bg: 'white.500',
-      svg: {
-        fill: 'black.500',
-        transition: 'all 0.2s ease-in-out',
-      },
-    },
-  },
-});
+const href = {
+  href: `https://www.youtube.com/playlist?list=${PLAYLISTS_IDS[0]}`,
+  target: '_blank',
+  textDecoration: 'none',
+};
 
-export default function Home({ data, isFirstRender }: { data: PlayList; isFirstRender: boolean }) {
+export default function Home({ data }: { data: PlayList }) {
   const { isInstagramBrowser } = useIdentifyInstagramBrowser();
 
   const itemsCtx = useItemsContext();
   const { query } = useRouter();
   const items = data?.items?.filter((item) => 'Deleted video' !== item.snippet.title) || [];
 
+  const DefaultHeader = chakra(Heading, {
+    baseStyle: {
+      as: 'h1',
+      fontSize: { base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4rem' },
+      fontWeight: '500',
+    },
+  });
+
   useEffect(() => {
     itemsCtx?.setValues({
       videoId: data?.items?.[0]?.snippet.resourceId.videoId || '',
       items,
-      isFirstRender,
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,19 +57,23 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
         <Box pos="absolute" w="99vw" h="100vh" top="0" zIndex="0" opacity="0.1">
           <Image src={backggroundImage} fill alt="bg" />
         </Box>
-        <Grid rowGap="4rem" zIndex="1" h="100%">
-          <Grid
-            alignItems="center"
-            width="100%"
-            gridTemplateColumns={{ base: '1fr', lg: '1fr auto' }}
-            gap="4rem"
-            pt="8vh"
-          >
-            <Box justifySelf={itemsCtx?.values.videoId ? 'start' : 'center'}>
+        <Grid rowGap="4rem" zIndex="1" h="100%" pt="8vh" px="7vw">
+          <Grid rowGap="1.5rem">
+            <DefaultHeader>
+              Ouça agora as{' '}
+              <Span {...href} target="_blank">
+                Top 100 músicas
+              </Span>
+              <Span {...href}> sertanejas</Span>
+              <br /> mais tocadas de 2023.
+            </DefaultHeader>
+          </Grid>
+
+          <Grid width="100%" gridTemplateColumns={{ base: '1fr' }} rowGap="4rem">
+            <Box>
               <VideoPlayer
                 videoId={itemsCtx?.values.videoId}
                 items={items}
-                isFirstRender={isFirstRender}
                 setSelectedVideo={(id) =>
                   itemsCtx?.setValues((values) => ({
                     ...values,
@@ -88,34 +82,48 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
                 }
               />
             </Box>
-            <Grid justifySelf={{ base: 'center', lg: 'start' }} rowGap="1.5rem">
-              <Heading
-                as="h1"
-                fontSize={{ base: isInstagramBrowser ? '2rem' : '2.9rem', xl: '4.5rem' }}
-                fontWeight="400"
-              >
-                Ouça agora as
-                <br />
-                <Span>Top 100 músicas</Span>
-                <br />
-                <Span>sertanejas</Span> mais
-                <br />
-                tocadas de 2023.
-              </Heading>
-              <Box w="70%">
-                <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
-                  <LinkButton w="100%">
-                    <PlayCicleIcon boxSize="30px" mr="0.5rem" fill="white.500" />
-                    Ouvir agora!
-                  </LinkButton>
-                </Link>
-              </Box>
-            </Grid>
           </Grid>
           <ButtonsPlayer />
         </Grid>
       </Page>
       <ViewMusic />
+      <Container centerContent p="0" maxW="133rem">
+        <Grid as="section" rowGap="2rem" my="4rem" px="7vw">
+          <Span fontWeight="normal" {...href}>
+            <DefaultHeader
+              as="h2"
+              fontSize={{ base: isInstagramBrowser ? '2rem' : '2.5rem', xl: '3.7rem' }}
+            >
+              As músicas Sertanejas mais Tocadas <br /> de 2023 no Spotify e Youtube
+            </DefaultHeader>
+          </Span>
+          <Box>
+            <Text fontSize="min(3.5vw, 1.7rem)">
+              Somos o site <Span {...href}>Sertanejas mais Tocadas De 2023</Span>, reunimos todas as
+              músicas sertanejas <br /> mais tocadas de 2023 em algumas playlists para facilitar a
+              sua curtição! Conheça agora <br />
+              mesmo a playlists com{' '}
+              <Span {...href}>
+                Músicas Sertanejas Mais Tocadas de 2023, o Top 100 Brasil,
+                <br /> Top 100 Spotify, Top Brasil no Youtube,
+              </Span>{' '}
+              todas reunidas em um só lugar.
+            </Text>
+          </Box>
+          <Text fontSize="0.9rem">
+            {` Você está no site : Sertanejas mais Tocadas Onde aqui você fica antenado sobre as "
+            TOP 100 Musicas Sertanejas Mais Tocadas De | 2023 - 2024 , Sertanejo Universitário 2023
+            , Lancamento Sertanejo Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro
+            2023 ! Com O Melhor do Sertanejo e fazer Donwload Com As Tops Sertanejas Mais Tocadas
+            nas rádios de 2023 , Gusttavo Lima, Jorge e Mateus, Marília Mendonça,Ze Neto e Cristiano
+            , Henrique & Juliano , Marília Mendonça, Anna Castela , Bruno e Marrone Luan Santana e
+            Muito Mais ! Com As Melhores " Playlists sertanejas de 2023 " onde você se diverte
+            também antenado com " TOP BRASIL SPOTIFY " MUSICAS HITS TIKTOK " Top 100 músicas
+            sertanejas mais tocadas do YouTube, Dezzer,SoundCloud,SuaMusica.com, Kawai e também
+            muito Mais !`}
+          </Text>
+        </Grid>
+      </Container>
     </MainLayout>
   );
 }
@@ -123,7 +131,6 @@ export default function Home({ data, isFirstRender }: { data: PlayList; isFirstR
 export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
   res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
   const id = query?.id || 'PL7lemN72eWJr4RLSPdPIlvjdyd_iBUXol';
-  const isFirstRender = !query?.id;
 
   const response = await fetch(
     `https://www.googleapis.com/youtube/v3/playlistItems/?part=snippet&maxResults=50&playlistId=${id}&key=${process.env.API_KEY_GOOGLE}`,
@@ -134,7 +141,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }) => 
   return {
     props: {
       data: data || {},
-      isFirstRender,
     },
   };
 };

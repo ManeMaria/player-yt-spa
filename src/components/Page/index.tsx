@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { ReactNode, useEffect, useRef } from 'react';
 
+import { keys } from '@/helpers/keyLetters';
+
 import backggroundImage from '../../assets/images/festival_widexl.png';
 import { MotionBox } from '../MotionBox';
 
@@ -11,6 +13,8 @@ type PageProps = {
   children: ReactNode;
   title?: string;
 } & BoxProps;
+
+const listStringKeys = keys.toString();
 
 export const Page = ({ children, title, ...restProps }: PageProps) => {
   const router = useRouter();
@@ -43,11 +47,11 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
     >
       <Head>
         <title>{title ? `${title}` : undefined}</title>
-        <meta name="description" content="Top 100 músicas sertanejas" />
+        <meta name="description" content={listStringKeys} />
       </Head>
       <NextSeo
         title={`${title}`}
-        description={'Ouça agora as Top 100 músicas sertanejas mais tocadas de 2023.'}
+        description={listStringKeys}
         openGraph={{
           title,
           type: 'website',

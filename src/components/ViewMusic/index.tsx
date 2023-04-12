@@ -1,6 +1,6 @@
 import { Flex, Grid, IconButton, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { NextIcon } from '@/assets/icons/NextIcon';
@@ -22,11 +22,12 @@ const findPositionCurrentVideo = (items: Item[], id: string) => {
 };
 
 export const ViewMusic = () => {
+  const { query, replace } = useRouter();
   const { isInstagramBrowser } = useIdentifyInstagramBrowser();
   const itemsCtx = useItemsContext();
   const [current, setCurrent] = useState(0);
   const items = itemsCtx?.values?.items || [];
-  const isFirstRender = itemsCtx?.values?.isFirstRender || false;
+
   useEffect(() => {
     if (itemsCtx?.values?.videoId) {
       setCurrent(findPositionCurrentVideo(items, itemsCtx?.values?.videoId) || 0);
@@ -59,7 +60,7 @@ export const ViewMusic = () => {
         </Text>
         <Grid gridTemplateColumns="auto auto auto">
           <IconButton
-            isDisabled={current === 0 || isFirstRender}
+            isDisabled={current === 0}
             icon={<PrevIcon />}
             aria-label={'anterior'}
             onClick={() => {
@@ -75,17 +76,18 @@ export const ViewMusic = () => {
             {...defaultStyles}
           />
 
-          <Link href={`/home?id=${PLAYLISTS_IDS[0]}`}>
-            <IconButton
-              icon={<PlayIcon />}
-              aria-label={'tocar'}
-              isDisabled={!isFirstRender}
-              {...defaultStyles}
-            />
-          </Link>
+          <IconButton
+            icon={<PlayIcon />}
+            aria-label={'tocar'}
+            {...defaultStyles}
+            isDisabled={!!query?.id}
+            onClick={() => {
+              replace(`/?id=${PLAYLISTS_IDS[0]}`);
+            }}
+          />
 
           <IconButton
-            isDisabled={current === items.length - 1 || isFirstRender}
+            isDisabled={current === items.length - 1}
             icon={<NextIcon />}
             aria-label={'próximo'}
             onClick={() => {

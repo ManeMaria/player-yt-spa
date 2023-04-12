@@ -1,10 +1,9 @@
-import { Button, Grid, Text, chakra } from '@chakra-ui/react';
+import { Button, Grid, Text, Tooltip, chakra } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 
 import { PlayIcon } from '@/assets/icons/PlayIcon';
-
-import { addStringLastPhrase } from './utils/addStringLastPhrase';
+import { addStringLastPhrase } from '@/helpers/addStringLastPhrase';
 
 const CustomButton = chakra(Button, {
   baseStyle: {
@@ -55,6 +54,18 @@ const LIST_PLAYLISTS = [
     title: 'Sertanejo Abril - Dez 2023',
     id: 'PL7lemN72eWJoYcn4mN7EZejGYL71QwxFI',
   },
+  {
+    title: 'Sertanejas Mais Tocadas De 2023',
+    id: 'PL7lemN72eWJqFqqw2jSoQ9XUzgjPzoONI',
+  },
+  {
+    title: 'Top 100 Músicas Sertanejas Mais Tocadas De 2023',
+    id: 'PL7lemN72eWJqFqqw2jSoQ9XUzgjPzoONI',
+  },
+  {
+    title: 'Sertanejo 2023 - 2024 | TOP 100 Musicas Sertanejas Mais Tocadas De | 2023',
+    id: 'PL7lemN72eWJqgzWGiulI9WKFYdTVo1zdm',
+  },
 ] as const;
 
 export const ButtonsPlayer = () => {
@@ -72,11 +83,17 @@ export const ButtonsPlayer = () => {
         Outras playlists:
       </Text>
       {LIST_PLAYLISTS.map((playlist) => (
-        <Link key={playlist.id} href={`/home?id=${playlist.id}`} replace>
+        <Link
+          key={playlist.id}
+          href={`https://www.youtube.com/playlist?list=${playlist.id}`}
+          target="_black"
+        >
           <CustomButton>
-            <Text ml="auto" isTruncated>
-              {addStringLastPhrase(playlist.title)}
-            </Text>
+            <Tooltip label={addStringLastPhrase(playlist.title)}>
+              <Text ml="auto" isTruncated>
+                {addStringLastPhrase(playlist.title)}
+              </Text>
+            </Tooltip>
             <PlayIcon boxSize={{ base: '10px', lg: '20px' }} fill="red.500" ml="auto" />
           </CustomButton>
         </Link>
