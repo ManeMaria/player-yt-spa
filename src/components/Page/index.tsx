@@ -84,7 +84,7 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
         }}
       />
       <Box w="98%" {...restProps}>
-        <Container centerContent p="0" h="100%" maxW="133rem">
+        <Container centerContent p="0" h="100%" maxW="133rem" w="100%">
           {children}
         </Container>
       </Box>
