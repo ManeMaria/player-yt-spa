@@ -110,6 +110,18 @@ export default function Home({ data }: { data: PlayList }) {
               todas reunidas em um só lugar.
             </Text>
           </Box>
+          <Text fontSize="0.9rem">
+            Você está no site : Sertanejas mais Tocadas Onde aqui você fica antenado sobre as " TOP
+            100 Musicas Sertanejas Mais Tocadas De | 2023 - 2024 , Sertanejo Universitário 2023 ,
+            Lancamento Sertanejo Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro
+            2023 ! Com O Melhor do Sertanejo e fazer Donwload Com As Tops Sertanejas Mais Tocadas
+            nas rádios de 2023 , Gusttavo Lima, Jorge e Mateus, Marília Mendonça,Ze Neto e Cristiano
+            , Henrique & Juliano , Marília Mendonça, Anna Castela , Bruno e Marrone Luan Santana e
+            Muito Mais ! Com As Melhores " Playlists sertanejas de 2023 " onde você se diverte
+            também antenado com " TOP BRASIL SPOTIFY " MUSICAS HITS TIKTOK " Top 100 músicas
+            sertanejas mais tocadas do YouTube, Dezzer,SoundCloud,SuaMusica.com, Kawai e também
+            muito Mais !
+          </Text>
         </Grid>
       </Container>
     </MainLayout>

@@ -3,8 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import { PlayIcon } from '@/assets/icons/PlayIcon';
-
-import { addStringLastPhrase } from './utils/addStringLastPhrase';
+import { addStringLastPhrase } from '@/helpers/addStringLastPhrase';
 
 const CustomButton = chakra(Button, {
   baseStyle: {
