@@ -1,4 +1,4 @@
-import { Grid, Text, chakra } from '@chakra-ui/react';
+import { Text, chakra } from '@chakra-ui/react';
 
 import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
 
@@ -29,12 +29,10 @@ export const MainLayout = ({ children }: LayoutProps) => {
   return (
     <>
       <Main>{children}</Main>
-      <Footer>
-        <Grid minH="8vh" placeItems="center">
-          <Text fontSize={isInstagramBrowser ? '0.8rem' : '1rem'}>
-            Todos os direitos reservados (All rights reserved) - 2024
-          </Text>
-        </Grid>
+      <Footer minH="8vh" textAlign="center" mx="auto ">
+        <Text fontSize={isInstagramBrowser ? '0.8rem' : '1rem'}>
+          Todos os direitos reservados (All rights reserved) - 2024
+        </Text>
       </Footer>
     </>
   );

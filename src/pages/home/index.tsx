@@ -70,18 +70,16 @@ export default function Home({ data }: { data: PlayList }) {
           </Grid>
 
           <Grid width="100%" gridTemplateColumns={{ base: '1fr' }} rowGap="4rem">
-            <Box>
-              <VideoPlayer
-                videoId={itemsCtx?.values.videoId}
-                items={items}
-                setSelectedVideo={(id) =>
-                  itemsCtx?.setValues((values) => ({
-                    ...values,
-                    videoId: id,
-                  }))
-                }
-              />
-            </Box>
+            <VideoPlayer
+              videoId={itemsCtx?.values.videoId}
+              items={items}
+              setSelectedVideo={(id) =>
+                itemsCtx?.setValues((values) => ({
+                  ...values,
+                  videoId: id,
+                }))
+              }
+            />
           </Grid>
           <ButtonsPlayer />
         </Grid>

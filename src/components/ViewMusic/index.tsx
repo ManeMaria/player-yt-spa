@@ -7,7 +7,6 @@ import { NextIcon } from '@/assets/icons/NextIcon';
 import { PlayIcon } from '@/assets/icons/PlayIcon';
 import { PLAYLISTS_IDS } from '@/config';
 import { useItemsContext } from '@/context/ItemsProvider';
-import { useIdentifyInstagramBrowser } from '@/hooks/useIdentifyInstagramBrowser';
 
 import { PrevIcon } from '../../assets/icons/PrevIcon';
 
@@ -23,7 +22,6 @@ const findPositionCurrentVideo = (items: Item[], id: string) => {
 
 export const ViewMusic = () => {
   const { query, replace } = useRouter();
-  const { isInstagramBrowser } = useIdentifyInstagramBrowser();
   const itemsCtx = useItemsContext();
   const [current, setCurrent] = useState(0);
   const items = itemsCtx?.values?.items || [];
@@ -40,7 +38,7 @@ export const ViewMusic = () => {
   return (
     <Flex
       py="0.4rem"
-      w={isInstagramBrowser ? '100vw' : '100%'}
+      w="100%"
       maxH="5rem"
       justifyContent="center"
       alignItems="center"
