@@ -1,8 +1,11 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 
+import { Analytics } from '@/components/Analytics';
 import { ItemsProvider } from '@/context/ItemsProvider';
 import { theme } from '@/styles';
+
 import '../styles/global.css';
 
 console.log(
@@ -12,14 +15,20 @@ console.log(
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider
-      theme={{
-        ...theme,
-      }}
-    >
-      <ItemsProvider>
-        <Component {...pageProps} />
-      </ItemsProvider>
-    </ChakraProvider>
+    <>
+      <Head>
+        <Analytics />
+      </Head>
+
+      <ChakraProvider
+        theme={{
+          ...theme,
+        }}
+      >
+        <ItemsProvider>
+          <Component {...pageProps} />
+        </ItemsProvider>
+      </ChakraProvider>
+    </>
   );
 }
