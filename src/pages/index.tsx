@@ -59,13 +59,12 @@ export default function Home({ data }: { data: PlayList }) {
         </Box>
         <Grid rowGap="4rem" zIndex="1" h="100%" pt="8vh" px="7vw">
           <Grid rowGap="1.5rem">
-            <DefaultHeader>
+            <DefaultHeader textAlign="center">
               Ouça agora as{' '}
               <Span {...href} target="_blank">
                 Top 100 músicas
               </Span>
-              <Span {...href}> sertanejas</Span>
-              <br /> mais tocadas de 2023.
+              <Span {...href}> sertanejas</Span> mais tocadas de 2023.
             </DefaultHeader>
           </Grid>
 

@@ -3,7 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    // domains: ['https://*'],
+    
     remotePatterns: [
       {
         protocol: 'https',
@@ -19,17 +19,7 @@ const nextConfig = {
         pathname: '/_next/**',
       }
     ],
-  },
-   redirects: async ()=> {
-    return [
-      {
-        source: '/',
-        destination: '/home',
-        permanent: true,
-      },
-     
-    ]
-  },
+  }
 };
 
 
