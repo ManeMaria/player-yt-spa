@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import { PlayIcon } from '@/assets/icons/PlayIcon';
+import { DEFAULT_YT_URL } from '@/config';
 import { addStringLastPhrase } from '@/helpers/addStringLastPhrase';
 
 const CustomButton = chakra(Button, {
@@ -83,11 +84,7 @@ export const ButtonsPlayer = () => {
         Outras playlists:
       </Text>
       {LIST_PLAYLISTS.map((playlist) => (
-        <Link
-          key={playlist.id}
-          href={`https://www.youtube.com/playlist?list=${playlist.id}`}
-          target="_black"
-        >
+        <Link key={playlist.id} href={`${DEFAULT_YT_URL}${playlist.id}`} target="_black">
           <CustomButton>
             <Tooltip label={addStringLastPhrase(playlist.title)}>
               <Text ml="auto" isTruncated>

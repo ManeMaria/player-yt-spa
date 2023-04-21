@@ -6,3 +6,5 @@ export const PLAYLISTS_IDS = [
   'PL7lemN72eWJpOA_usiEdTLfFksCSa564Q',
   'PL7lemN72eWJoYcn4mN7EZejGYL71QwxFI',
 ] as const;
+
+export const DEFAULT_YT_URL = 'https://www.youtube.com/playlist?list=';
