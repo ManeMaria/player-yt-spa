@@ -8,6 +8,7 @@ import { keys } from '@/helpers/keyLetters';
 
 import backggroundImage from '../../assets/images/festival_widexl.png';
 import { MotionBox } from '../MotionBox';
+import { Tags } from '../Tags';
 
 type PageProps = {
   children: ReactNode;
@@ -46,6 +47,7 @@ export const Page = ({ children, title, ...restProps }: PageProps) => {
       mx="auto"
     >
       <Head>
+        <Tags />
         <title>{title ? `${title}` : undefined}</title>
         <meta name="description" content={listStringKeys} />
       </Head>
