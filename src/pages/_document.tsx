@@ -8,7 +8,7 @@ export default function Document() {
         <meta charSet="uf-8" />
         <meta name="robots" content="index,follow" />
 
-        {/* <meta property="og:url" content="" /> */}
+        <meta property="og:url" content="https://www.sertanejasmaistocadas.com.br" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Top 100 músicas sertanejas" />
         <meta
