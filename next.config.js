@@ -19,7 +19,16 @@ const nextConfig = {
         pathname: '/_next/**',
       }
     ],
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 
