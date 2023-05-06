@@ -127,17 +127,25 @@ export default function Home({ data }: { data: PlayList }) {
 
 export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
   res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
-  const id = query?.id || 'PL7lemN72eWJr4RLSPdPIlvjdyd_iBUXol';
+  const id = query?.id || PLAYLISTS_IDS[0];
 
-  const response = await fetch(
-    `https://www.googleapis.com/youtube/v3/playlistItems/?part=snippet&maxResults=50&playlistId=${id}&key=${process.env.API_KEY_GOOGLE}`,
-  );
+  try {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems/?part=snippet&maxResults=50&playlistId=${id}&key=${process.env.API_KEY_GOOGLE}`,
+    );
 
-  const data = (await response.json()) as PlayList;
+    const data = (await response.json()) as PlayList;
 
-  return {
-    props: {
-      data: data || {},
-    },
-  };
+    return {
+      props: {
+        data: data || {},
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: {},
+      },
+    };
+  }
 };
